@@ -12,11 +12,19 @@ module.exports = {
       ext: 'hbs',
       toTree: function(tree) {
         return ComponentFilter(tree);
+        // console.log('found', found.components);
+        // return tree;
       }
     });
 
     if (type === 'parent') {
       this.parentRegistry = registry;
     }
+  },
+
+  included: function(app) {
+    this._super.included.apply(this, arguments);
+
+    this.setupPreprocessorRegistry('parent', app.registry);
   }
 };
